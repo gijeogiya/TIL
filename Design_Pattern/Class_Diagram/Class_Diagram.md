@@ -6,11 +6,7 @@
 
 ## 기호와 의미
 
-
-
-![Screen Shot 2022-03-29 at 6.32.52 PM](C:\Users\msg01\Downloads\Screen Shot 2022-03-29 at 6.32.52 PM.png)
-
-![Screen Shot 2022-03-29 at 6.33.04 PM](C:\Users\msg01\Downloads\Screen Shot 2022-03-29 at 6.33.04 PM.png)
+<img src="https://media.vlpt.us/images/seonja/post/6ec0407b-439c-4b2b-8320-830528a89a6d/image.png">
 
 ### 상자
 
