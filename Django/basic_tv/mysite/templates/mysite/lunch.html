@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+  div {
+    color: blue;
+  }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<div>
+  <h1>Happy Lunch!</h1>
+  <h2>오늘의 점심 {{ menu }}!!</h2>
+</div>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Article List</h1>
+
+<ul>
+  {% for article in articles %}
+  {% comment %} <li>
+    <a href="/articles/{{ article.pk }}/">{{ article.title }}</a>
+  </li> {% endcomment %}
+
+  <li>
+    <a href="{% url 'practice:article_detail' article.pk  %}">{{ article.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock content %}

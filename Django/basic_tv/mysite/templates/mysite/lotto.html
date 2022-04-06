@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Lucky Numbers</h1>
+
+{% comment %} 
+  {{ }} => print
+
+  {% %} => else
+{% endcomment %}
+
+<ul>
+  {% for number in lucky_numbers %}
+    <li>{{ number }}</li>
+  {% endfor %}
+</ul>
+{% endblock content %}

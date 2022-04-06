@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ article.title }}</h1>
+
+<p>
+  {{ article.content | linebreaksbr }}
+</p>
+
+<div>
+  <a href="{% url 'articles:edit' article.pk %}">
+    <button>수정</button>
+  </a>
+</div>
+<form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+  <button onclick="return confirm('지울래?')">삭제</button>
+</form>
+
+{% endblock content %}

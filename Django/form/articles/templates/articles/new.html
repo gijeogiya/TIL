@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% comment %} POST /articles/create/ {% endcomment %}
+
+<form method="POST">
+  {% csrf_token %}
+
+  {{ form.as_p }}
+
+  <button>GO</button>
+</form>
+
+
+{% endblock content %}
