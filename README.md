@@ -1,1 +1,1 @@
-# 🌯Today I Leared
+# 🌯Today I Learned
