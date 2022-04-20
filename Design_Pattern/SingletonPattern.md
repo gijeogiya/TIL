@@ -1,0 +1,4 @@
+# SingletonPattern
+
+## SingletonPattern
+
