@@ -6,7 +6,7 @@
 
 특정한 목표를 수행하기 위한 행동 계획
 
-![image-20220428202000198](C:\Users\msg01\AppData\Roaming\Typora\typora-user-images\image-20220428202000198.png)
+![image-20220428202000198](StrategyPattern.assets/image-20220428202000198.png)
 
 
 
