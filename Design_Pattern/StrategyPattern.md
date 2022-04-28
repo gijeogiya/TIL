@@ -20,7 +20,7 @@
 
 - 동일 계열의 알고리즘군을 정의하고. 
 
-  (walk, runm fly, rocket)
+  (walk, run, fly, rocket)
 
 - 각 알고리즘을 캡슐화아며,
 
