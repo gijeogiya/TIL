@@ -44,7 +44,7 @@ CSS는 스타일을 지정하기 위한 언어로 선택자를 통해 스타일�
 
 ### 웹 페이지 살펴보기
 
-![1](하나소주 구매하기.assets/1.png)
+![1](BuyingHanasoju.assets/1.png)
 
 제품 구매 페이지를 확인해보면 현재 품절 상태인 것을 확인 할 수 있다.
 
@@ -56,17 +56,17 @@ Elements 탭에서 해당 페이지를 구성하고 있는 문서를 확인 할 
 
 Elements 탭에서 Ctrl + f 를 눌러 '구매하기'를 검색해보면 아래와 같은 코드를 확일 할 수 있다.
 
-![2](하나소주 구매하기.assets/2.png)
+![2](BuyingHanasoju.assets/2.png)
 
 빨간 박스를 살펴보자 구매하기, 예약주문, 정기배송 신청하기 버튼이 displaynone 클래스로 숨겨져 있는 것을 확인 할 수 있다.
 
 우리는 이제 displaynone 만 지워주면 구매하기 버튼을 활성화 시킬 수 있는 것이다.
 
-![3](하나소주 구매하기.assets/3.png)
+![3](BuyingHanasoju.assets/3.png)
 
 위와 같이 코드를 수정했다면 페이지는 아래와 같이 바뀐 것을 확인 할 수 있다.
 
-![4](하나소주 구매하기.assets/4.png)
+![4](BuyingHanasoju.assets/4.png)
 
 구매하기 버튼이 생성됐다.
 
