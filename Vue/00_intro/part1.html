@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .dark-mode {
+      background-color: rgb(35, 35, 35);
+      color: white;
+    }
+
+    .light-mode {
+      background-color: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ h1Message }}</h1>
+    <div>
+      <button @click="switchTheme">
+        {{ buttonMessage }}
+      </button>
+    </div>
+    <div>
+      <button @click="plus">{{ fontSize + 1 }} px</button>
+      <button @click="minus">{{ fontSize - 1 }} px</button>
+    </div>
+
+
+    <div :class="modeByDark" :style="{ fontSize: fontSize + 'px'}">
+      <ul>
+        <li v-for="article in articles">
+          <strong>{{ article.title }}</strong>: {{ article.content }}
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        dark: true,
+        fontSize: 16,
+        articles: [
+          {id: 1, title: 'Hello', content: 'World'},
+          {id: 2, title: 'Vue', content: 'is coming'},
+          {id: 3, title: 'Frontend', content: 'Developer'},
+        ],
+      },
+      // 모든 종류의 함수! (90% 이상 콜백함수)
+      methods: {
+        switchTheme: function () {
+          this.dark = !this.dark
+        },
+        plus: function () { this.fontSize++ },
+        minus: function () { this.fontSize-- }
+      },
+      // (data를 기반으로) 자동 계산된 값
+      computed: {
+        buttonMessage: function () {
+          console.log('시랭!')
+          return this.dark ? '밝게' : '어둡게'
+        },
+        h1Message: function () {
+          return this.dark ? 'Dark Mode' : 'Light Mode'
+        },
+        modeByDark() {
+          return this.dark ? 'dark-mode' : 'light-mode'
+        }
+      },
+    })
+  </script>
+</body>
+</html>
