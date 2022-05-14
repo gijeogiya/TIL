@@ -1,12 +1,12 @@
-# Factorypattern
+# FactoryPattern
 
-## Factorypattern
+## FactoryPattern
 
-### Factorypattern의 구성
+### FactoryPattern의 구성
 
 다음의 2가지 종류로 구성된다.
 
-<img width="550" alt="Screen Shot 2022-05-12 at 7 53 27 AM" src="Factorypattern.assets/167960332-8e947b34-8206-4850-988e-955c548bdfa0.png">
+<img width="550" alt="Screen Shot 2022-05-12 at 7 53 27 AM" src="FactoryPattern.assets/167960332-8e947b34-8206-4850-988e-955c548bdfa0.png">
 
 1. 공장(Factory): 객체를 생성하는 역할
 2. 생산품(Product): 생성된 객체 

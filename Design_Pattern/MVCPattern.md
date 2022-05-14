@@ -1,6 +1,6 @@
-# MVC Pattern
+# MVCPattern
 
-## MVC Pattern
+## MVCPattern
 MVC는 Model-View-Controller의 약자이다.
 
 개발할 때 Model, View, Controller로 구분하여 개발하는 소프트웨어 개발 방법론이다.
