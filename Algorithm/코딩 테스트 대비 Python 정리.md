@@ -103,3 +103,13 @@
 - `deque.extendleft(array)`: 주어진 배열(array)을 순환하면서 데크의 왼쪽에 추가한다.
 - `deque.remove(item)`: item을 데크에서 찾아 삭제한다.
 - `deque.rotate(num)`: 데크를 num만큼 회전한다(양수면 오른쪽, 음수면 왼쪽).
+
+
+
+## Counter
+
+`from collections import Counter`
+
+```python
+Counter("문자열")
+```
