@@ -1,10 +1,12 @@
-# Composite Pattern
+# Composite Pattern(복합체 패턴)
 
 - **컴포지트 패턴(Composite pattern)**이란 객체들의 관계를 트리 구조로 구성하여 부분-전체 계층을 표현하는 패턴으로, 사용자가 단일 객체와 복합 객체 모두 동일하게 다루도록 함.
-
 - 컴포지트 패턴은 Component, Composite, Leaf 들로 구성됨.
 
-  
+
+
+
+## 예시 코드
 
 ```java
 import java.util.ArrayList;
@@ -140,3 +142,14 @@ public class CompositePattern {
 }
 ```
 
+
+
+## 장단점
+
+### 장점
+
+그룹핑 : 단일 객체와 복합 객체(그룹)를 동일하게 여기기 때문에 묶어서 연산하거나 관리할 때 편하다.
+
+### 단점
+
+디버깅 어려움 : 재귀호출의 특징 상 트리의 Depth가 깊어질 수록 라인 단위의 디버깅에 어려움이 생긴다.
