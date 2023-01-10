@@ -275,4 +275,45 @@ public class Method2Demo {
 
 #### 메서드 호출과 반환
 
-#### 값 전달(call by value)
+메서드를 호출하면 제어가 호출된 메서드(callee)로 넘어갔다가 호출된 메서드의 실행을 마친 후 호출한 메서드(caller)로 다시 돌아온다. 단, return 문을 사용하면 다음과 같이 메서드의 실행 도중 에도 호출한 메서드로 제어를 넘길 수 있다.
+
+#### 매서드의 매개변수
+
+- 메서드의 정의: 메소드는 클래스 영역 안에서만 정의 가능
+- 메서드의 호출: 메서드의 이름(값1, 값2, ...)
+
+#### 스택
+
+- 스택: 밑이 막힌 상자, 넣는 순서대로 위에 차곡차곡 쌓인다. 밑이 막혀있기 때문에 꺼낼때는 위에 있는 것부터 꺼낸다.
+- 호출 스택(call stack): 메서드 수행에 필요한 메모리가 제공되는 공간. 메서드가 호출되면 호출스택에 메모리할당, 종료되면 해제됨
+
+#### 매개변수
+
+- 기본형 매개변수
+  - 8개 기본형을 매개변수로 하는 메서드, 변수의 값을 읽기만 함(read only)
+  - 값 전달(call by value)
+- 참조형 매개변수
+  - 기본형 이외의 변수를 매개변수로 하는 메서드, 변수의 값을 읽고 변경할 수 있다.(read & write)
+  - 주소 전달(call by address)
+
+```java
+public class CallbyValue {
+  public static void main(String[] args) {
+    MyMath m = new MyMath();
+    long res1 = m.add(2L, 3L);
+    System.out.println(res1);
+  }
+}
+
+class MyMath {
+  long add(long a, long b) { return a+b; }
+  long sub(long a, long b) { return a-b; }
+  long mul(long a, long b) { return a*b; }
+  long div(long a, long b) { return a/b; }
+}
+```
+
+#### 오버로딩
+
+- 메서드 시그너처(Method Signature) : 메서드 이름, 매개변수의 개수, 매개변수의 타입과 순서를 의미
+- 메서드 이름은 같지만 메서드 시그니처가 다른 메서드를 정의하는 것을 메서드 오버로딩(Method Overloading)이라고 한다.
