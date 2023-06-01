@@ -67,7 +67,6 @@ print(something.number, something.name, something.size)  # 3 st 7
 #### 단점
   - 원하는 객체를 만들려면 빌더부터 만들어야 한다
   - 구조가 복잡해 진다 (트레이 오프)
-  - 
 ## 실무에서 어떻게 쓰이나?
 - 자바 8 Stream.Buidler API
 - StringBuilder는 빌더 패턴일까?
