@@ -156,6 +156,6 @@ x:58 y:26 위치에 카키색 나무를 설치했습니다!
 - 캐시를 제공한다.
 - https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html#valueOf-int
 
-### Spring
+### Java String
 - 플라이웨이트 패턴은 Java의 String Constant Pool에 적용됨
 - Java의 String은 만들어질때 String Constant Pool에 저장되어 같은 문자열이 pool에 있다면 이를 불러오는 방식으로 되어있음
