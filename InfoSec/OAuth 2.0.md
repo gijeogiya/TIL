@@ -53,3 +53,23 @@ Refresh Token 사용이 불가능한 방식이며, 이 방식에서 권한 서�
 - 이 방식은 자격증명을 안전하게 보관할 수 있는 클라이언트에서만 사용되어야 하며, Refresh Token은 사용할 수 없음
 
 ![image](https://github.com/gijeogiya/TIL/assets/97646078/91a39f7b-9607-45f0-b19f-3059c0562f7a)
+
+## Request and Response Examples
+### 주요 API Parameter
+|Parameter|설명|
+|---|---|
+|client_id, client_secret|클라이언트 자격증명. 클라이언트가 권한 서버에 등록하면 발급받을 수 있으며 권한 서버 연동 시 클라이언트의 검증에 사용|
+|redirect_url|권한 서버가 요청에 대한 응답을 보낼 url을 설정|
+|response_type|권한 부여 동의 요청 시 포함되는 값으로 권한 부여 방식에 대한 설정
+아래 값 중 한 개를 사용
+  · code: Authorization Code Grant
+  · token: Implicit Grant|
+|state|CSRF 공격에 대비하기 위해 클라이언트가 권한서버에 요청 시 포함하는 임의의 문자열. 필수 사항은 아니지만 클라이언트가 요청 시 state를 포함 시켰다면 권한 서버는 동일한 값을 클라이언트에게 보내야 함|
+|grant_type|Access Token 획득 요청 시 포함되는 값으로 권한 부여 방식에 대한 설정입니다. 아래 값 중 한 개를 사용
+  · authorization_code: Authorization Code Grant
+  · password: Resource Owner Password Credentials Grant
+  · client_credentials: Client Credentials Grant|
+|code|Authorization Code Grant 방식에서 Access Token요청 시 사용됩니다. 권한 서버에서 획득한 Authorization Code를 입력|
+|token_type|발행된 Token의 타입. 대표적으로 Bearer, MAC(Message Authentication Code)가 있음|
+|expires_in|토큰 만료 시간(단위: 초)|
+|example_parameter|Token 타입에 따른 추가 파라미터|
