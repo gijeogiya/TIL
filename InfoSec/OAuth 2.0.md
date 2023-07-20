@@ -67,3 +67,40 @@ Refresh Token 사용이 불가능한 방식이며, 이 방식에서 권한 서�
 |token_type|발행된 Token의 타입. 대표적으로 Bearer, MAC(Message Authentication Code)가 있음|
 |expires_in|토큰 만료 시간(단위: 초)|
 |example_parameter|Token 타입에 따른 추가 파라미터|
+
+- 추가로 API 요청에 포함되는 Authorization Basic 헤더는 Client 자격증명 관련 데이터로 client_id와 client_secret값을 아래와 같이 Base64 인코딩하여 생성함
+`base64(client_id:client_secret)`
+
+1. Authorization Code Grant: 권한 부여 승인 코드 방식
+- Step 1: Authorization
+|구분|값|
+|---|---|
+|Request|(GET)/authorize?response_type=code&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fc|
+|Response|https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz|
+- Step 2: Access Token
+|구분|값|
+|---|---|
+|Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb|
+|Response|{"access_token":"2YotnFZFEjr1zCsicMWpAA", "token_type":"example", "expires_in":3600, "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA", "example_parameter":"example_value"}|
+|특이사항|Authorization Code 획득 후 해당 Code로 Access Token 획득|
+
+2. Implicit Grant: 암묵적 승인 방식
+|구분|값|
+|---|---|
+|Request|(GET)/authorize?response_type=token&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb|
+|Response|http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA&state=xyz&token_type=example&expires_in=3600|
+|특이사항|Authorize 요청 시 url로 Access Token이 바로 전달됨|
+
+3. Resource Owner Password Credentials Grant: 자원 소유자 자격증명 승인 방식
+|구분|값|
+|---|---|
+|Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=password&username=johndoe&password=A3ddj3w|
+|Response|{"access_token":"2YotnFZFEjr1zCsicMWpAA", "token_type":"example", "expires_in":3600, "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA", "example_parameter":"example_value"}|
+|특이사항|Username, Password로 Access Token 획득|
+
+4. Client Credentials Grant: 클라이언트  자격증명 승인 방식
+|구분|값|
+|---|---|
+|Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=client_credentials|
+|Response|{"access_token":"2YotnFZFEjr1zCsicMWpAA", "token_type":"example", "expires_in":3600, "example_parameter":"example_value"}|
+|특이사항|클라이언트 자격증명만으로 Access Token 획득|
