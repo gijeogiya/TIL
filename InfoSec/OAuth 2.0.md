@@ -72,12 +72,12 @@ Refresh Token 사용이 불가능한 방식이며, 이 방식에서 권한 서�
 `base64(client_id:client_secret)`
 
 1. Authorization Code Grant: 권한 부여 승인 코드 방식
-- Step 1: Authorization
+Step 1: Authorization
 |구분|값|
 |---|---|
 |Request|(GET)/authorize?response_type=code&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fc|
 |Response|https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz|
-- Step 2: Access Token
+Step 2: Access Token
 |구분|값|
 |---|---|
 |Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb|
