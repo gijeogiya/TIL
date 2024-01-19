@@ -150,6 +150,27 @@
    3. prototype.js의 주요 API
       1. 클래스의 정의
       2. prototype.js의 DOM API
-
-
-         
+### Part 03: Ajax를 위한 Dynamic HTML
+1. DHTML(DynamicHTML)의 개요
+   1. Dynamic HTML은 무엇인가?
+   2. DOM과 자바스크립트
+2. DOM의 주요 인터페이스 및 메소드와 프로퍼티의 사용
+   1. 노드(Node)
+   2. Domcument 인터페이스
+   3. Element 인터페이스
+   4. DOM에서 자주 사용되는 프로퍼티(속성)
+      1. 엘리먼트.id
+      2. 엘리먼트.class
+      3. 엘리먼트.tagName
+      4. 엘리먼트.length
+      5. 엘리먼트.lang
+      6. 엘리먼트.innerHTML
+      7. 엘리먼트.outerHTML
+      8. 엘리먼트.innerText
+      9. 엘리먼트.outerText
+   5. DOM에서 자주 사용되는 메소드
+      1. document.getElementById(id 속성값)
+      2. document.getElementByName(엘리먼트명)
+      3. document.getElementByTagName(엘리먼트명)
+      4. document.getAttribute(속성명)
+      5. document.setAttribute(속성명)
