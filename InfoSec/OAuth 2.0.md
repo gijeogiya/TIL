@@ -5,6 +5,7 @@
 - 간편 로그인 기능도 OAuth2 프로토콜 기반의 사용자 인증 기능을 제공 ex) 네이버, 페이스북, 카카오, 네이버, L.POINT 등
 
 ## OAuth 2.0 주요 용어
+
 |용어|설명|
 |---|---|
 |Authentication|인증, 접근 자격이 있는지 검증하는 단계|
@@ -13,6 +14,7 @@
 |Refresh Token|Access Token 만료시 이를 갱신하기 위한 용도로 사용하는 Token. Refresh Token은 일반적으로 Access Token보다 만료 기간이 김|
 
 ## Roles - OAuth 2.0의 4가지 역할
+
 |역할|설명|
 |---|---|
 |Resource Owner|리소스 소유자 또는 사용자. 보호된 자원에 접근할 수 있는 자격을 부여해 주는 주체. OAuth2 프로토콜 흐름에서 클라이언트를 인증(Authorize)하는 역할을 수행. 인증이 완료되면 권한 획득 자격(Authorization Grant)을 클라이언트에게 부여. 개념적으로는 리소스 소유자가 자격을 부여하는 것이지만 일반적으로 권한 서버가 리소스 소유자와 클라이언트 사이에서 중개 역할을 수행하게 됨|
@@ -56,6 +58,7 @@ Refresh Token 사용이 불가능한 방식이며, 이 방식에서 권한 서�
 
 ## Request and Response Examples
 ### 주요 API Parameter
+
 |Parameter|설명|
 |---|---|
 |client_id, client_secret|클라이언트 자격증명. 클라이언트가 권한 서버에 등록하면 발급받을 수 있으며 권한 서버 연동 시 클라이언트의 검증에 사용|
@@ -73,12 +76,14 @@ Refresh Token 사용이 불가능한 방식이며, 이 방식에서 권한 서�
 
 1. Authorization Code Grant: 권한 부여 승인 코드 방식
 Step 1: Authorization
+
 |구분|값|
 |---|---|
 |Request|(GET) /authorize?response_type=code&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fc|
 |Response|https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz|
 
 Step 2: Access Token
+
 |구분|값|
 |---|---|
 |Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb|
@@ -86,6 +91,7 @@ Step 2: Access Token
 |특이사항|Authorization Code 획득 후 해당 Code로 Access Token 획득|
 
 2. Implicit Grant: 암묵적 승인 방식
+
 |구분|값|
 |---|---|
 |Request|(GET) /authorize?response_type=token&client_id=s6BhdRkqt3&state=xyz&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb|
@@ -93,6 +99,7 @@ Step 2: Access Token
 |특이사항|Authorize 요청 시 url로 Access Token이 바로 전달됨|
 
 3. Resource Owner Password Credentials Grant: 자원 소유자 자격증명 승인 방식
+
 |구분|값|
 |---|---|
 |Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=password&username=johndoe&password=A3ddj3w|
@@ -100,6 +107,7 @@ Step 2: Access Token
 |특이사항|Username, Password로 Access Token 획득|
 
 4. Client Credentials Grant: 클라이언트  자격증명 승인 방식
+
 |구분|값|
 |---|---|
 |Request|(POST) /token Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW Content-Type: application/x-www-form-urlencoded grant_type=client_credentials|
