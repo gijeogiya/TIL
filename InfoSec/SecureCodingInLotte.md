@@ -340,3 +340,5 @@
 - 진단규칙 확인(튜님) - 진단도구 기반 보안약점 진단
 - 정/오탐 판정 등 진단결과 분석
 - 진단보고서 작성 및 조치방안 컨설팅 - 보완조치 이행점검 실시
+## 3. 자바 시큐어 코딩
+[행정안전부 배포 자바 시큐어 코딩](https://www.mois.go.kr/synap/skin/doc.html?fn=BBS_201405271120475982&rs=/synapFile/202406/&synapUrl=%2Fsynap%2Fskin%2Fdoc.html%3Ffn%3DBBS_201405271120475982%26rs%3D%2FsynapFile%2F202406%2F&synapMessage=%EC%A0%95%EC%83%81)
