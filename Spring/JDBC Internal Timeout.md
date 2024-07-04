@@ -1,4 +1,4 @@
-![image](https://github.com/gijeogiya/TIL/assets/97646078/ad1cc0be-4b28-4054-a91c-46e26570abd7)# JDBC Internal Timeout
+# JDBC Internal Timeout
 ## JDBC
 - JDBC는 DBMS에 접근하기 위한 표준 API이다.
 - JDBC Type4 드라이버는 Java로만 작성되어 있으며(pure java), Java 애플리케이션에서 소켓을 이용해 DBMS와 통신한다.
