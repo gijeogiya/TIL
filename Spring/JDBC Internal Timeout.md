@@ -19,3 +19,13 @@
 - 단, 애플리케이션 로직에서 DBCP에 getConnection() 메서드를 호출할 때 Connection을 애플리케이션이 얻을 때까지의 타임아웃을 지정할 수 있다. 하지만 이것은 JDBC의 ConnectTimeout과는 무관하다.
 ![각 레벨 별 타임아웃](https://github.com/gijeogiya/TIL/assets/97646078/d8b98030-85b5-4b42-a70b-16505b9060d8)
 ## TransactionTimeout
+- TransactionTimeout은 프레임워크(Spring, EJB Container)나 애플리케이션 레벨에서 유효한 타임아웃이다.
+- "StatementTimeout x N(Statement 수행 수) + α(가비지 컬렉션 및 기타)"라고 할 수 있다.
+- 전체 Statement 수행 시간을 허용할 수 있는 최대 시간 이내로 제한하려 할 때 TransactionTimeout을 사용한다.
+- Statement 한 개를 수행할 때 0.1초가 필요하다면, 몇 개 안 되는 Statement를 수행할 때에는 문제가 없다. 그러나 Statement 10만 개를 수행할 때에는 일만 초(약 7시간)가 필요하다. TransactionTimeout은 이런 경우에 사용할 수 있다.
+- 실 구현체로 EJB CMT(Container Managed Transaction)가 가장 대표적인 예이다.
+- Spring에서 제공하는 TransactionTimeout은 매우 단순하다. 해당 Transaction의 시작 시간과 경과 시간을 기록하면서, 특정 이벤트 발생 시 경과 시간을 확인하여 타임아웃 이상일 경우 예외(Exception)를 발생하도록 하고 있다.
+- Spring에는 Transaction Synchronization방식이라고 하여 Connection을 ThreadLocal에저장해 두고 사용한다.
+- ThreadLocal에 Connection 저장 시 Transaction의 시작 시간과 타임아웃 시간을 같이 기록하고, Proxy Connection을 사용하여 Statement를 생성하는 작업을 시도할 경우 경과 시간을 체크하여 예외를 발생시키도록 구현되어있다.
+- 수행 시간이 200ms인 Statement가 5개 이하이고 기타 부수적인 비즈니스 로직 처리 시간이나 프레임워크 동작 시간이 100ms일 경우, TrasactionTimeout시간은 1100ms((200 x 5)+100) 이상으로 설정해야 한다.
+## StatementTimeout
