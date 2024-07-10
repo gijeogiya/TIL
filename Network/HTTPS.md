@@ -24,4 +24,32 @@
 - 복호화에 성공하면 이 인증서는 CA(Certificate Authority, 인증기관)가 서명한 것이 맞는 것이니 진짜임이 증명됨
 - Client는 데이터 암호화에 사용한 대칭키(비밀키)를 생성한 후 SSL 인증서 내부에 들어 있던(Server가 발행한) 공개키를 이용하여 암호화 하여 Server에게 전송
 ![Certificate Packet](https://github.com/gijeogiya/TIL/assets/97646078/c81fd3ce-d8d5-4a0c-a5d8-9159773e9062)
-
+## Server Key Exchange / ServerHello Done
+- 'Server Key Exchange'는 Server의 공개키가 SSL 인증서 내부에 없는 경우, Server가 직접 전달함을 의미
+- 공개키가 SSL 인증서 내부에 있을 경우 Server Key Exchange는 생략됨
+- 인증서 내부에 공개키가 있다면 Client가 CA(Certificate Authority, 인증기관)의 공개키를 통해 인증서를 복호화한 후 Server의 공개키를 확보할 수 있음. 그래고 Server가 행동을 마쳤음을 전달
+![Server Key Exchange](https://github.com/gijeogiya/TIL/assets/97646078/57fa3e48-33ff-4642-8bc0-cea18c629171)
+위의 경우, 키 교환 알고리즘이 Diffie-Hellman(DH, DHE 등) 알고리즘이기에 키 교환 재료를 서로 교환하므로 'Server Key Exchange'를 발생시킴
+## Client Key Exchange
+- 대칭키(비밀키, 데이터를 실제로 암호화하는 키)를 Client가 생성하여 SSL 인증서 내부에서 추출한 Server의 공개키를 이용해 암호화한 후 Server에 전달
+- 여기서 전달된 '대칭키'가 바로 SSL Handshake의 목적이자 가장 중요한 수단인 데이터를 실제로 암호화할 대칭키(비밀키)
+- 이제 키를 통해 Client와 Server가 교환하고자 하는 데이터를 암호화함
+![Client Key Exchange](https://github.com/gijeogiya/TIL/assets/97646078/f13e3159-743a-4024-ac09-ab6cc602f41f)
+- Client가 데이터를 암호화할 대칭키(비밀키)를 보낸다고 했는데 'EC Diffie-Hellman Client Params', 즉 키를 생성할 재료를 보냄
+- 키교환 알고리즘을 RSA가 아닌 Diffie-Hellman(DH, DHE 등) 알고리즘과 타원곡선 암호인 ECDHE(Elliptic Curve DHE)을 사용하게 된다면 Client가 데이터를 암호화할 대칭키(비밀키)를 보내는 것이 아니라 대칭키(비밀키)를 생성할 재료를 Client와 Server가 교환하게 됨
+- 서로 교환한 각자의 재료를 합쳐 동일한 대칭키를 만들 수 있음
+- Diffie-Hellman(DH, DHE 등)과 타원곡선 암호인 ECDHE(Elliptic Curve DHE)의 특징
+- RSA 키교환 알고리즘을 사용하게 되면 Client가 대칭키(비밀키)를 생성하여 인증서 내부에 들어 있던 서버의 공개키로 암호화 한 후 전달하게 됨
+## ChangeCipherSpec / Finished
+- Client, Server 모두가 서로에게 보내는 Packet으로 교환할 정보를 모두 교환한 뒤 통신할 준비가 다 되었음을 알리는 패킷
+- 'Finished' Packet을 보내어 SSL Handshake를 종료하게 됨
+![ChangeCipherSpec](https://github.com/gijeogiya/TIL/assets/97646078/279434b1-bfdf-4d40-ae6f-e5decf7442c9)
+## SSL Handshake 요약
+1. ClientHello: 암호화 알고리즘 나열 및 전달
+2. ServerHello: 암호화 알고리즘 선택
+3. Server Cerificate: 인증서 전달
+4. Client Key Exchange: 데이터를 암호화할 대칭키 전달
+5. Client / Server Hello Done: 정보 전달 완료
+6. Finished: SSL Handshake 종료
+- 과정이 끝나면 Client와 Server는 데이터를 암호화할 동일한 대칭키(비밀키)를 갖게됨
+- 서로에게 각자 갖고 있는 동일한 대칭키를 통해 데이터를 암호화하여 전송하거나 데이터를 복호화함
