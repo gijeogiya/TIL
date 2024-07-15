@@ -110,6 +110,7 @@ Commons DBCP에서는 DBMS에 로그인을 시도하고 있는 커넥션도 사�
 - 스프링 부트 2.0부터 default JDBC connection pool이다.
 - zero-overhead의 특징을 갖는다.
   - overhead: 어떤 처리를 하기 위해 들어가는 간접적인 처리 시간 및 메모리
+
 ![image](https://github.com/user-attachments/assets/78a07fa0-fd2e-48ea-8b02-268535c1e3d2)
 Springboot 환경에서는 application.properties에서 간단하게 HikariCP의 설정을 할 수 있다.
 ![image](https://github.com/user-attachments/assets/7a6d1bd4-4212-4f54-9f26-a9b77b9c216a)
