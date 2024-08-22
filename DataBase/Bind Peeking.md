@@ -1,4 +1,4 @@
 # Bind Peeking
->Oracle
+>Oracle Database
 ## 근묵자흑(近墨者黑)
 잘못된 다수의 요청은 자원을 고갈 시킬 뿐만 아니라 최적화된 기능을 변경 시킬 위험이 있다.
