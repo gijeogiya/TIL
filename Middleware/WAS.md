@@ -1,4 +1,4 @@
-# WAS(Web Application Server)
+![image](https://github.com/user-attachments/assets/63240dde-286d-439b-b133-8bccd80ab605)# WAS(Web Application Server)
 ## WAS(Web Application Server)의 정의
 - 개발된 Web Application을 설치(배포) 및 실행하고 Client에서 온 요청을 처리 및 결과를 전달하는 서버
 - 복잡한 연산을 처리하며 Database 및 외부 서비스와 상호작요하면서 비즈니스 로직을 처리
@@ -9,4 +9,10 @@
 - DB에 요청해서 회신 된 모든 Data는 Heap Memory에 저장된다.
 - 사용 중인 Data는 Heap에 계속 유지되고 있으나 사용 완료된 Data는 GC(Garbafe Collector)에 의해 정리 된다.
 - WEB에서 온 요청을 로직 처리 후 종료(Colse)처리 될 때까지 유지되는 것을 Session(세션)이라 한다.
-  
+![WAS 종류](https://github.com/user-attachments/assets/d36a3fda-2255-4fdd-bf76-1709d47017f3)
+![WAS 역할](https://github.com/user-attachments/assets/bb24b139-af12-4527-948f-c311869c89b0)
+![WAS 프로세스](https://github.com/user-attachments/assets/afcc9e59-b41d-4871-9004-fc23b96c5a84)
+## WAS(Web Application Server)의 특징
+### Thread Pool Or Connection Pool
+- WEB과 WAS를 연결하는 Thread Pool은 동일 및 MIN/MAX를 동일하게 설정하는 것을 권고한다.
+- WAS-DB간의 연결방식은 Application에서 Source 설정하는 방식이 있으나, 성능 및 관리 문제로 지양한다.
