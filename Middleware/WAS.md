@@ -27,3 +27,5 @@
 - GC는 Heap Memory 사용 중에 불필요하거나 사용완료 된 Data를 정리하는 기능이다.
 - Heap은 Young과 Old 영역으로 나뉘어져 있고, 각각 Minor GC와 Full GC가 일어난다.
 - Full GC는 Old 영역의 Data를 정리하며, Full GC 시 프로세스가 멈추므로 GC관리가 필요하다.
+![image](https://github.com/user-attachments/assets/6cda2dbf-85d4-45c5-b322-02b672aa296f)
+
