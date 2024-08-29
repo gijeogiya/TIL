@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/63240dde-286d-439b-b133-8bccd80ab605)# WAS(Web Application Server)
+# WAS(Web Application Server)
 ## WAS(Web Application Server)의 정의
 - 개발된 Web Application을 설치(배포) 및 실행하고 Client에서 온 요청을 처리 및 결과를 전달하는 서버
 - 복잡한 연산을 처리하며 Database 및 외부 서비스와 상호작요하면서 비즈니스 로직을 처리
@@ -16,3 +16,9 @@
 ### Thread Pool Or Connection Pool
 - WEB과 WAS를 연결하는 Thread Pool은 동일 및 MIN/MAX를 동일하게 설정하는 것을 권고한다.
 - WAS-DB간의 연결방식은 Application에서 Source 설정하는 방식이 있으나, 성능 및 관리 문제로 지양한다.
+- WAS에 DB와 연결하는 DBCP(or JDBC) 기능이 있으며 연결 및 Connection 수 설정 등을 관리 할 수 있다.
+### Heap Memory
+- Heap Memory란 물리 메모리(RAM) 공간을 동적으로 할당 Container에서 메모리로 활용하는 공간이다.
+- Heap Memory의 용량이 클 수록 성능 및 Data 관리에 용이하다.
+- 다만 너무 크다면 메모리를 정리하는 GC 실행 시 프로세스의 멈춤 현상이 오래 간다.
+- 
