@@ -21,4 +21,9 @@
 - Heap Memory란 물리 메모리(RAM) 공간을 동적으로 할당 Container에서 메모리로 활용하는 공간이다.
 - Heap Memory의 용량이 클 수록 성능 및 Data 관리에 용이하다.
 - 다만 너무 크다면 메모리를 정리하는 GC 실행 시 프로세스의 멈춤 현상이 오래 간다.
-- 
+- 일정 용량 이상만 설정하는 것을 권고하며 그 이상 필요 시 Container를 추가하여 이중화 하는 것을 권고한다.
+- Heap Memory 이상의 데이터가 발생 시, Out of Memory Error가 발생하며 WAS가 종료되므로 관리가 필요하다.
+### GC(Garbage Collector)
+- GC는 Heap Memory 사용 중에 불필요하거나 사용완료 된 Data를 정리하는 기능이다.
+- Heap은 Young과 Old 영역으로 나뉘어져 있고, 각각 Minor GC와 Full GC가 일어난다.
+- Full GC는 Old 영역의 Data를 정리하며, Full GC 시 프로세스가 멈추므로 GC관리가 필요하다.
