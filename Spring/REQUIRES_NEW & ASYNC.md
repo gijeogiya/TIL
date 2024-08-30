@@ -17,7 +17,8 @@ REQUIRES_NEW는 이미 실행 중인 Transaction이 있을 때 새로운 Transac
 `NotificationService`는 알림을 전송하고, 알림 정보를 DB에 저장한다.    
 알림 전송에 실패해도 좋아요 정보는 롤백되어서는 안 된다.    
 `NotificationService`의 `sendNotification()`의 전파 속성을 `REQUIRES_NEW`로 설정함으로써 두 작업을 독립적인 트랜잭션으로 분리 가능하다.    
-java```
+
+```java
 @Service
 @RequiredArgsConstructor
 @Slf4j
