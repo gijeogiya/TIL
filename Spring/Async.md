@@ -29,7 +29,7 @@ public class AsyncService {
   - 각 작업마다 새로운 Thread를 생성하고 비동기방식으로 동작
   - `concurrencyLimit` 프로퍼티를 이용해 지정한 수 보다 요청이 넘어설 경우 제한. default는 `unlimit`
   - `simpleAsyncTaskExecutor`는 Thread를 재사용 하지않음!
-`SimpleAsyncTaskExecutor` 은 Thread pool 방식의 Executor가 아니다. 그렇다보니 위에 설명한것처럼 Thread를 재사용하지 않습니다. 공식 문서에서는 Thread pool 방식의 TaskExecutor를 사용하기를 고려해보기를 권장한다. 특히 실행시간이 짧은 많은량의 태스크를 처리해야할때 더욱 필요하다.     
+`SimpleAsyncTaskExecutor` 은 Thread pool 방식의 Executor가 아니다. 그렇다보니 위에 설명한것처럼 Thread를 재사용하지 않는다. 공식 문서에서는 Thread pool 방식의 TaskExecutor를 사용하기를 고려해보기를 권장한다. 특히 실행시간이 짧은 많은량의 태스크를 처리해야할때 더욱 필요하다.     
 ### 유의사항
 `@Async` 을 사용할 때는 다음 내용을 지켜서 사용해야한다.   
 - method 접근지정자 private 사용 불가
