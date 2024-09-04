@@ -82,5 +82,5 @@ public class AsyncService{
 }
 ```
 #### 출력결과
-![image](https://github.com/user-attachments/assets/35afa44d-7ea7-4780-b777-ea627cc822c9)
+![image](https://github.com/user-attachments/assets/35afa44d-7ea7-4780-b777-ea627cc822c9)      
 taskExecutor1, taskExecutor2 두개의 스레드가 순서와 관계없이 비동기식으로 처리된 결과를 볼 수 있다.     
