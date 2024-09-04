@@ -39,6 +39,48 @@ public class AsyncService {
 `@Async`는 Spring AOP에 의해서 프록시 방식으로 작동된다.     
 ![image](https://github.com/user-attachments/assets/3605388d-77d9-4761-9ce3-abdb031a9f89)      
 Spring Context에 등록되어있는 Async Bean이 호출되면 Spring이 개입하여 해당 Async Bean을 프록시 객체로 Wrapping 한다. 정확히 말하면 컨테이너에 의해 Bean으로 등록되는 시점에 프록시 객체화 하는 것이다. 호출한 객체는 실질적으로 AOP를 통해 만들어진 프록시 객체화된 Async Bean을 참조하게 된다. 즉, 위의 그림에서는 Caller Method B는 Proxy 객체의 Method A를 호출하게 되는 것이다.       
-자 그렇다면 이제 위에서 설명한 유의사항들을 설명할 수 있다.     
-위의 그림에서 Method A가 private으로 지정되어 있다면 AOP가 가로채서 프록시 객체로 만들때 Method A에 접근할 수 없으므로 private method는 사용할 수 없다.      
-self-invocation(자가 호출)의 경우에는 프록시 객체를 거치지 않고 직접 Method A를 호출하기 때문에 Async가 동작하지 않는다.     
+     
+그렇다면 이제 위에서 설명한 유의사항들을 설명할 수 있다.     
+     
+- 위의 그림에서 Method A가 private으로 지정되어 있다면 AOP가 가로채서 프록시 객체로 만들때 Method A에 접근할 수 없으므로 private method는 사용할 수 없다.
+- Self-Invocation(자가 호출)의 경우에는 프록시 객체를 거치지 않고 직접 Method A를 호출하기 때문에 Async가 동작하지 않는다.     
+### 작동 예시
+이제 `@Async`가 정삭적으로 작동하는 경우와 아닌 경우에 대해 살펴보자.       
+1. 정상 작동
+```java
+...
+public class CallerService {
+
+    private final AsyncService asyncService;
+
+    /* 정상적으로 Async 호출 */
+    public void callAsync(){
+        log.info("[Async Method 정상호출]");
+        asyncService.asyncReceiver1();
+        asyncService.asyncReceiver2();
+    }
+}
+
+...
+public class AsyncService{
+
+	@Async("taskExecutor1")
+    public void asyncReceiver1(){
+        log.info("[asyncReceiver1()]");
+        for(int i=0;i<5;i++){
+            log.info("::::::Thread Name : " + Thread.currentThread().getName());
+        }
+    }
+
+    @Async("taskExecutor2")
+    public void asyncReceiver2(){
+        log.info("[asyncReceiver2()]");
+        for(int i=0;i<5;i++){
+            log.info("::::::Thread Name : " + Thread.currentThread().getName());
+        }
+    }
+}
+```
+#### 출력결과
+![image](https://github.com/user-attachments/assets/35afa44d-7ea7-4780-b777-ea627cc822c9)
+taskExecutor1, taskExecutor2 두개의 스레드가 순서와 관계없이 비동기식으로 처리된 결과를 볼 수 있다.     
