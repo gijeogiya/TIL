@@ -18,7 +18,7 @@ public class MySpringApplication {
 - 후에 메소드에 @Async 어노테이션을 명시하기만하면 태스크 처리를 비동기 방식으로 할 수 있다.
 ```java
 public class AsyncService {
-	@Async
+    @Async
     public void asyncMethod(){
     	...
     }
@@ -98,7 +98,7 @@ public class AsyncService{
         this.asyncReceiver2();
     }
 
-	@Async("taskExecutor1")
+    @Async("taskExecutor1")
     public void asyncReceiver1(){
         log.info("[innerAsyncReceiver1()]");
         for(int i=0;i<5;i++){
@@ -137,7 +137,7 @@ public class CallerService {
 ...
 public class AsyncService{
 
-	@Async("taskExecutor1")
+    @Async("taskExecutor1")
     public void asyncReceiver1(){
         log.info("[asyncReceiver1()]");
         for(int i=0;i<5;i++){
