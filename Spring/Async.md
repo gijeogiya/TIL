@@ -46,7 +46,8 @@ Spring Context에 등록되어있는 Async Bean이 호출되면 Spring이 개입
 - Self-Invocation(자가 호출)의 경우에는 프록시 객체를 거치지 않고 직접 Method A를 호출하기 때문에 Async가 동작하지 않는다.     
 ### 작동 예시
 이제 `@Async`가 정삭적으로 작동하는 경우와 아닌 경우에 대해 살펴보자.       
-1. 정상 작동
+#### 1. 정상 작동
+##### 코드
 ```java
 ...
 public class CallerService {
@@ -81,6 +82,86 @@ public class AsyncService{
     }
 }
 ```
-#### 출력결과
+##### 출력결과
 ![image](https://github.com/user-attachments/assets/35afa44d-7ea7-4780-b777-ea627cc822c9)      
 taskExecutor1, taskExecutor2 두개의 스레드가 순서와 관계없이 비동기식으로 처리된 결과를 볼 수 있다.     
+#### 2. 호출하는 클래스 내부에 있는 Async 메소드를 직접 호출하는 경우
+##### 코드
+```java
+...
+public class AsyncService{
+
+	/* 같은 클래스에 있는 async 메소드 호출 */
+	public void callInnerAsync(){
+        log.info("[내부 클래스의 Async 메소드 호출]");
+        this.asyncReceiver1();
+        this.asyncReceiver2();
+    }
+
+	@Async("taskExecutor1")
+    public void asyncReceiver1(){
+        log.info("[innerAsyncReceiver1()]");
+        for(int i=0;i<5;i++){
+            log.info("::::::Thread Name : " + Thread.currentThread().getName());
+        }
+    }
+
+    @Async("taskExecutor2")
+    public void asyncReceiver2(){
+        log.info("[innerAsyncReceiver2()]");
+        for(int i=0;i<5;i++){
+            log.info("::::::Thread Name : " + Thread.currentThread().getName());
+        }
+    }
+}
+```
+##### 출력결과
+![image](https://github.com/user-attachments/assets/c29a20b8-f21f-4b03-b525-314e0d606936)      
+결과를 보면 출력이 순차적으로 이루어져 있다. 비동기식으로 작동하지 않은 것이다. 위에 설명한 것 처럼 내부 호출(self-invocation)을 할 경우 프록시 객체를 거치지 않기 때문에 비동기 처리가 되지 않는다. 다음 그림과 같은 형태가 되어버린다.     
+![image](https://github.com/user-attachments/assets/ae136abc-5b67-4beb-91be-d70c810cd4dc)
+#### 3. 생성자로 생성한 객체의 Async 메소드 호출
+##### 코드
+```java
+...
+public class CallerService {
+	...
+    /* 생성자로 생성하여 Async 메소드 호출 */
+    public void callAsyncWithConstructor(){
+        AsyncService asyncServiceWithConstructor = new AsyncService();
+        log.info("[생성자를 통한 Async 메소드 호출]");
+        asyncServiceWithConstructor.asyncReceiver1();
+        asyncServiceWithConstructor.asyncReceiver2();
+    }
+}
+
+...
+public class AsyncService{
+
+	@Async("taskExecutor1")
+    public void asyncReceiver1(){
+        log.info("[asyncReceiver1()]");
+        for(int i=0;i<5;i++){
+            log.info("::::::Thread Name : " + Thread.currentThread().getName());
+        }
+    }
+
+    @Async("taskExecutor2")
+    public void asyncReceiver2(){
+        log.info("[asyncReceiver2()]");
+        for(int i=0;i<5;i++){
+            log.info("::::::Thread Name : " + Thread.currentThread().getName());
+        }
+    }
+}
+```
+##### 출력결과
+![image](https://github.com/user-attachments/assets/ad37d49b-ec9f-47b1-8fea-b247f0d9e92c)      
+3번 결과의 경우도 2번 결과와 비슷하며 제대로 작동하지 않는 원리 또한 비슷하다. 직접 생성자를 이용해 생성함으로써 Bean에 등록이 되지않았고 그렇기에 AOP가 프록시 객체로 만들지 못한다.
+## 정리
+- 비동기는 요청에 대한 결과를 기다리지 않으므로 작업을 병렬처리가 가능하다.
+- `@Async`는 스프링에서 제공하는 비동기 처리 어노테이션이다.
+- `SimpleAsyncTaskExecutor`는 Thread pool 방식이 아니기 때문에 Thread pool 방식의 Executor를 쓰자
+- `@Async`를 사용할 때는 private 쓰지 말고 자가 호출(self-invocation)하지 말자
+- `@Async` 메소드가 호출되면 스프링 AOP에 의해 해당 메소드를 포함한 객체를 Wrapping한 프록시 객체가 만들어지고 호출자는 만들어진 프록시 객체를 참조한다.
+
+
