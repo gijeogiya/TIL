@@ -1,6 +1,7 @@
 # JVM JDK JRE
 ## JVM JDK JRE 개념 요약
 - JDK가 JRE, JVM을 포함하고, JRE는 JVM을 포함한다. (JDK > JRE > JVM)
+     
 ![image](https://github.com/user-attachments/assets/9cdf1b2e-2f34-455f-bb32-17a86ca49dbc)
 1. JVM (Java Virtual Machine)
 - Java는 OS에 종속적이지 않기 때문에, JVM을 이용하여 여러 종류의 운영체제에서 Java 프로그램을 실행할 수 있다.
