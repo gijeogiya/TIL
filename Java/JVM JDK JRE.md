@@ -4,12 +4,12 @@
      
 ![image](https://github.com/user-attachments/assets/9cdf1b2e-2f34-455f-bb32-17a86ca49dbc)
 1. JVM (Java Virtual Machine)
-- Java는 OS에 종속적이지 않기 때문에, JVM을 이용하여 여러 종류의 운영체제에서 Java 프로그램을 실행할 수 있다.
+     - Java는 OS에 종속적이지 않기 때문에, JVM을 이용하여 여러 종류의 운영체제에서 Java 프로그램을 실행할 수 있다.
 2. JRE (Java Runtime Environment)
--  JVM과 자바 프로그램을 실행(동작)시킬 때 필요한 라이브러리 API를 함께 묶어서 배포되는 패키지로, 
-- JVM이 원활하게 잘 작동할 수 있도록 환경을 맞춰주는 역할 한다.
+     -  JVM과 자바 프로그램을 실행(동작)시킬 때 필요한 라이브러리 API를 함께 묶어서 배포되는 패키지로, 
+     - JVM이 원활하게 잘 작동할 수 있도록 환경을 맞춰주는 역할 한다.
 3. JDK (Java Development Kit)
-- 개발자들이 자바로 개발할 때 사용되는 소프트웨어 개발 키트로, 자바 컴파일러를 포함하고 있다.
+     - 개발자들이 자바로 개발할 때 사용되는 소프트웨어 개발 키트로, 자바 컴파일러를 포함하고 있다.
 ## JVM (Java Virtual Machine)
 ![image](https://github.com/user-attachments/assets/6d70135e-244e-431e-9634-5e22b4bb9096)
 - Java는 JVM이 구동될 수 있는 환경이라면 모두 실행이 가능하므로 높은 이식성을 보인다. (반면 C언어는 OS별로 다른 컴파일이 필요하므로, 이식성이 낮다.)
