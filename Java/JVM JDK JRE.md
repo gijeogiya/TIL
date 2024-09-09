@@ -1,5 +1,5 @@
-# JVM, JDK, JRE
-## JVM / JDK / JRE 개념 요약
+# JVM JDK JRE
+## JVM JDK JRE 개념 요약
 - JDK가 JRE, JVM을 포함하고, JRE는 JVM을 포함한다. (JDK > JRE > JVM)
 ![image](https://github.com/user-attachments/assets/9cdf1b2e-2f34-455f-bb32-17a86ca49dbc)
 1. JVM (Java Virtual Machine)
