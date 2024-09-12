@@ -87,4 +87,98 @@ public class Serializable<T> {
     } 
 }
 ```
-해당 클래스의 책임을 직렬화 자체만으로 보는지 또는 직렬화와 역직렬화는 사실상 세트니까 직렬화 전반에 대한 책임으로 보는지에 따라 다르다. 만약 해당 서비스가 임의의 데이터를 직렬화해서 적재만 하고, 해당 데이터를 역직렬화해서 후처리하는 것은 다른 서비스에서 맡고 있다면 SRP를 위반한다고도 판단할 수 있다. 하지만 캐시와 같은 저장소에 직접 직렬화해서 저장하고, 역직렬화해서 조회한다면 SRP를 위반하기 어렵다고 볼 수도 있을 것이다. 따라서 SRP를 판단하기 위해서는 유스케이스와 요구 사항 등을 고려해야 한다.
+해당 클래스의 책임을 직렬화 자체만으로 보는지 또는 직렬화와 역직렬화는 사실상 세트니까 직렬화 전반에 대한 책임으로 보는지에 따라 다르다. 만약 해당 서비스가 임의의 데이터를 직렬화해서 적재만 하고, 해당 데이터를 역직렬화해서 후처리하는 것은 다른 서비스에서 맡고 있다면 SRP를 위반한다고도 판단할 수 있다. 하지만 캐시와 같은 저장소에 직접 직렬화해서 저장하고, 역직렬화해서 조회한다면 SRP를 위반하기 어렵다고 볼 수도 있을 것이다. 따라서 SRP를 판단하기 위해서는 유스케이스와 요구 사항 등을 고려해야 한다.     
+## 개방 폐쇄 원칙 (Open-Closed Principle, OCP)
+개방 폐쇄 원칙(Open-Closed Principle, OCP)은 **확장에 대해 열려있고 수정에 대해서는 닫혀있어야 한다는 원칙**으로, 각각이 갖는 의미는 다음과 같다.       
+- 확장에 대해 열려 있다: 요구사항이 변경될 때 새로운 동작을 추가하여 애플리케이션의 기능을 확장할 수 있다.
+- 수정에 대해 닫혀 있다: 기존의 코드를 수정하지 않고 애플리케이션의 동작을 추가하거나 변경할 수 있다.
+이번에는 비밀번호 암호화를 강화해야 한다는 요구사항이 새롭게 들어왔다고 가정하자. 비밀번호 암호화를 강화하기 위해 다음과 같이 SHA-256 알고리즘을 사용하는 새로운 PasswordEncoder를 생성하였다.        
+(물론 SHA256 해시 알고리즘을 비밀번호 암호화에 사용하는 것은 적절하지 못하다. 그 이유는 SHA256으로 해시되는 값들을 미리 적어두어 해킹하는 레인보우 테이블 공격 기법을 사용할 수 있기 때문이다. 그러나 여기서는 개방 폐쇄의 원칙을 설명하기 위함이므로 예시로 사용하고자 한다.)
+```java
+@Component
+public class SHA256PasswordEncoder {
+
+    private final static String SHA_256 = "SHA-256";
+
+    public String encryptPassword(final String pw)  {
+        final MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance(SHA_256);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException();
+        }
+
+        final byte[] encodedHash = digest.digest(pw.getBytes(StandardCharsets.UTF_8));
+
+        return bytesToHex(encodedHash);
+    }
+
+    private String bytesToHex(final byte[] encodedHash) {
+        final StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
+
+        for (final byte hash : encodedHash) {
+            final String hex = Integer.toHexString(0xff & hash);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    }
+}
+```
+그리고 새로운 비밀번호 암호화 정책을 적용하려고 봤더니 새로운 암호화 정책과 무관한 UserService를 다음과 같이 수정해주어야 하는 문제가 발생하였다.    
+```java
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final SHA256PasswordEncoder passwordEncoder;
+
+    ...
+    
+}
+```
+이는 기존의 코드를 수정하지 않아야 하는 개방 폐쇄 원칙에 위배된다. 그리고 나중에 또 다시 비밀번호 암호화 정책을 변경해야 한다는 요구사항이 온다면 또 다시 UserService에 변경에 필요해진다.      
+이러한 문제를 해결하고 개방 폐쇄 원칙을 지키기 위해서는 추상화에 의존해야 한다. 추상화란 핵심적인 부분만 남기고, 불필요한 부분은 제거함으로써 복잡한 것을 간단히 하는 것이고, 추상화를 통해 변하지 않는 부분만 남김으로써 기능을 구체화하고 확장할 수 있다. 변하지 않는 부분은 고정하고 변하는 부분을 생략하여 추상화함으로써 변경이 필요한 경우에 생략된 부분을 수정하여 개방-폐쇄의 원칙을 지킬 수 있다.       
+위의 예제에서 변하지 않는 것은 사용자를 추가할 때 암호화가 필요하다는 것이고, 변하는 것은 사용되는 구체적인 암호화 정책이다. 그러므로 UserService는 어떠한 구체적인 암호화 정책이 사용되는지는 알 필요 없이 단지 passwordEncoder 객체를 통해 암호화가 된 비밀번호를 받기만 하면 된다.        
+그러므로 UserService가 구체적인 암호화 클래스에 의존하지 않고 PasswordEncoder라는 인터페이스에 의존하도록 추상화하면 우리는 개방 폐쇄의 원칙이 충족되는 코드를 작성할 수 있다.       
+```java
+public interface PasswordEncoder {
+    String encryptPassword(final String pw);
+}
+
+@Component
+public class SHA256PasswordEncoder implements PasswordEncoder {
+
+    @Override
+    public String encryptPassword(final String pw)  {
+        ...
+    }
+}
+
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public void addUser(final String email, final String pw) {
+        final String encryptedPassword = passwordEncoder.encryptPassword(pw);
+
+        final User user = User.builder()
+            .email(email)
+            .pw(encryptedPassword).build();
+
+        userRepository.save(user);
+    } 
+}
+```
+OCP가 본질적으로 얘기하는 것은 추상화이며, 이는 결국 런타임 의존성과 컴파일타임 의존성에 대한 이야기이다. 여기서 런타임 의존성이란 애플리케이션 실행 시점에서의 객체들의 관계를 의미하고, 컴파일타임 의존성이란 코드에 표현된 클래스들의 관계를 의미한다.        
+다형성을 지원하는 객체지향 프로그래밍에서 런타임 의존성과 컴파일타임 의존성은 동일하지 않다. 위의 예제에서 UserService는 컴파일 시점에 추상화된 PasswordEncoder에 의존하고 있지만 런타임 시점에는 구체 클래스(SHA256PasswordEncoder)에 의존한다.     
+       
+객체가 알아야 하는 지식이 많으면 결합도가 높아지고, 결합도가 높아질수록 개방-폐쇄의 원칙을 따르는 구조를 설계하기가 어려워진다. 추상화를 통해 변하는 것들은 숨기고 변하지 않는 것들에 의존하게 하면 우리는 기존의 코드 및 클래스들을 수정하지 않은 채로 애플리케이션을 확장할 수 있다. 그리고 이것이 개방 폐쇄의 원칙이 의미하는 것이다. 개방 폐쇄 원칙은 확장성이 코드 품질의 중요한 척도이기 때문에 가장 유용하다.        
+그렇다고 하여 추후 확장될 가능성이 거의 없는 것들까지 미리 준비하는 것은 과도한 설계가 될 수 있다. 개방 폐쇄 원칙은 “공짜”가 아니다. 따라서 코드의 확장성과 가독성 사이에서 적절한 균형이 필요하다. 따라서 단기간 내에 진행할 수 있는 확장, 코드 구조 변경에 미치는 영향이 비교적 큰 확장, 구현 비용이 많이 들지 않는 확장에 대해 확장 포인트를 미리 준비하되, 향후 지원 여부가 확실하지 않은 요구사항이나 확장이 오히려 개발에 부하를 주는 경우에는 해당 작업이 실제로 필요할 때 리팩터링하는 것이 더 나을 수 있다.       
