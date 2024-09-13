@@ -182,3 +182,89 @@ OCP가 본질적으로 얘기하는 것은 추상화이며, 이는 결국 런타
        
 객체가 알아야 하는 지식이 많으면 결합도가 높아지고, 결합도가 높아질수록 개방-폐쇄의 원칙을 따르는 구조를 설계하기가 어려워진다. 추상화를 통해 변하는 것들은 숨기고 변하지 않는 것들에 의존하게 하면 우리는 기존의 코드 및 클래스들을 수정하지 않은 채로 애플리케이션을 확장할 수 있다. 그리고 이것이 개방 폐쇄의 원칙이 의미하는 것이다. 개방 폐쇄 원칙은 확장성이 코드 품질의 중요한 척도이기 때문에 가장 유용하다.        
 그렇다고 하여 추후 확장될 가능성이 거의 없는 것들까지 미리 준비하는 것은 과도한 설계가 될 수 있다. 개방 폐쇄 원칙은 “공짜”가 아니다. 따라서 코드의 확장성과 가독성 사이에서 적절한 균형이 필요하다. 따라서 단기간 내에 진행할 수 있는 확장, 코드 구조 변경에 미치는 영향이 비교적 큰 확장, 구현 비용이 많이 들지 않는 확장에 대해 확장 포인트를 미리 준비하되, 향후 지원 여부가 확실하지 않은 요구사항이나 확장이 오히려 개발에 부하를 주는 경우에는 해당 작업이 실제로 필요할 때 리팩터링하는 것이 더 나을 수 있다.       
+## 인터페이스 분리 원칙 (Interface segregation principle, ISP)
+객체가 충분히 높은 응집도의 작은 단위로 설계됐더라도, 목적과 관심이 각기 다른 클라이언트가 있다면 인터페이스를 통해 적절하게 분리해줄 필요가 있는데, 이를 인터페이스 분리 원칙이라고 부른다. 즉, 인터페이스 분리 원칙이란 클라이언트의 목적과 용도에 적합한 인터페이스 만을 제공하는 것이다. 인터페이스 분리 원칙을 준수함으로써 모든 클라이언트가 자신의 관심에 맞는 퍼블릭 인터페이스(외부에서 접근 가능한 메세지)만을 접근하여 불필요한 간섭을 최소화할 수 있으며, 기존 클라이언트에 영향을 주지 않은 채로 유연하게 객체의 기능을 확장하거나 수정할 수 있다.       
+인터페이스 분리 원칙을 지킨다는 것은 어떤 구현체에 부가 기능이 필요하다면 이 인터페이스를 구현하는 다른 인터페이스를 만들어서 해결할 수 있다. 예를 들어 파일 읽기/쓰기 기능을 갖는 구현 클래스가 있는데 어떤 클라이언트는 읽기 작업 만을 필요로 한다면 별도의 읽기 인터페이스를 만들어 제공해주는 것이다.
+예를 들어 사용자가 비밀번호를 변경할 때 입력한 비밀번호가 기존의 비밀번호와 동일한지 검사해야 하는 로직을 다른 Authentication 로직에 추가해야 한다고 가정하자. 그러면 우리는 다음과 같은 isCorrectPassword라는 퍼블릭 인터페이스를 SHA256PasswordEncoder에 추가해줄 것이다.      
+```java
+@Component
+public class SHA256PasswordEncoder implements PasswordEncoder {
+
+    @Override
+    public String encryptPassword(final String pw)  {
+        ...
+    }
+
+    public String isCorrectPassword(final String rawPw, final String pw) {
+        final String encryptedPw = encryptPassword(rawPw);
+        return encryptedPw.equals(pw);
+    }
+}
+```
+하지만 UserService에서는 비밀번호 암호화를 위한 encryptPassword() 만을 필요로 하고, 불필요하게 isCorrectPassword를 알 필요가 없다. 현재 UserService는 PasswordEncoder를 주입받아 encrpytPassword에만 접근 가능하므로 인터페이스 분리가 잘 된 것 처럼 보인다. 하지만 새롭게 추가될 Authentication 로직에서는 isCorrectPassword에 접근하기 위해 구체 클래스인 SHA256PasswordEncoder를 주입받아야 하는데 그러면 불필요한 encryptPassword에도 접근 가능해지고, 인터페이스 분리 원칙을 위배하게 된다.       
+물론 PasswordEncoder에 isCorrectPassword 퍼블릭 인터페이스를 추가해줄 수 있지만, 클라이언트의 목적과 용도에 적합한 인터페이스 만을 제공한다는 인터페이스 분리 원칙을 지키기 위해서라도 이미 만든 인터페이스는 건드리지 않는 것이 좋다.      
+그러므로 위의 상황을 해결하기 위해서는 비밀번호를 검사를 의미하는 별도의 인터페이스(PasswordChecker)를 만들고, 해당 인터페이스로 주입받도록 하는 것이 적합하다.      
+```java
+public interface PasswordChecker {
+    String isCorrectPassword(final String rawPw, final String pw);
+}
+
+@Component
+public class SHA256PasswordEncoder implements PasswordEncoder, PasswordChecker {
+
+    @Override
+    public String encryptPassword(final String pw)  {
+        ...
+    }
+  
+    @Override
+    public String isCorrectPassword(final String rawPw, final String pw) {
+        final String encryptedPw = encryptPassword(rawPw);
+        return encryptedPw.equals(pw);
+    }
+}
+```
+클라이언트에 따라 인터페이스를 분리하면 변경에 대한 영향을 더욱 세밀하게 제어할 수 있다. 그리고 이렇게 인터페이스를 클라이언트의 기대에 따라 분리하여 변경에 의해 의한 영향을 제어하는 것을 인터페이스 분리 원칙이라고 부른다.    
+여기서 인터페이스는 꼭 하나의 인터페이스 파일에만 해당하지는 않는다. 인터페이스 분리 원칙에서 이야기하는 인터페이스는 넓게 보아 아래의 내용들 까지 확장될 수도 있다.    
+- API나 기능의 집합
+- 단일 API 또는 기능
+- 객체지향 프로그래밍의 인터페이스
+## 리스코프 치환 원칙 (Liskov Substitution Principle, LSP)
+리스코프 치환 원칙은 1988년 바바라 리스코프가 올바른 상속 관계의 특징을 정의하기 위해 발표한 것으로, 하위 타입은 상위 타입을 대체할 수 있어야 한다는 것이다. 즉, 해당 객체를 사용하는 클라이언트는 상위 타입이 하위 타입으로 변경되어도, 차이점을 인식하지 못한 채 상위 타입의 퍼블릭 인터페이스를 통해 서브 클래스를 사용할 수 있어야 한다는 것이다. 즉, 이는 클라이언트와 객체 사이의 계약이 존재하고, 이를 준수해야 한다는 원칙이므로 계약에 따른 설계(design by contract) 라고 표현할 수도 있다. 하위 클래스는 상위 클래스의 동작 규칙(계약)을 따라야 하는 것이다.       
+     
+리스코프 치환 원칙에 대해 이해하기 위해 기존의 예시들과 다른 정사각형은 직사각형이다(Square is a Rectangle)는 예시를 살펴보도록 하자. 직사각형과 정사각형을 각각 구현하면 다음과 같다.       
+```java
+@Getter
+@Setter
+@AllArgsConstructor
+public class Rectangle {
+
+    private int width, height;
+
+    public int getArea() {
+        return width * height;
+    }
+
+}
+
+public class Square extends Rectangle {
+
+    public Square(int size) {
+        super(size, size);
+    }
+	
+    @Override
+    public void setWidth(int width) {
+        super.setWidth(width);
+        super.setHeight(width);
+    }
+
+    @Override
+    public void setHeight(int height) {
+        super.setWidth(height);
+        super.setHeight(height);
+    }
+}
+```
+Square는 1개의 변수만을 생성자로 받으며, width나 height 1개 만을 설정하는 경우 모두 설정되도록 메소드가 오버라이딩 되어 있다.
+이를 이용하는 클라이언트는 당연히 직사각형의 너비와 높이가 다르다고 가정할 것이고, 직사각형을 resize()하기를 원하는 경우 다음과 같은 메소드를 만들어 너비와 높이를 수정할 것이다. (항상 클라이언트의 입장에서 생각해야 함에 유의해야 한다.)
