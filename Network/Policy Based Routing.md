@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/8d6c5581-71f8-44e5-b815-91c925f1606a)# PBR(Policy Based Routing)
+# PBR(Policy Based Routing)
 - 데이터가 전달되는 과정에서 서로 다른 네트워크들을 통과해야 하는 경우가 생길 수 있다.
 - 여러 네트워크들의 연결을 담당하고 있는 라우터 장비가 데이터의 목적지가어디인지 확인하여 빠르고 정확한 길을 찾아 전달하는 기술을 라우팅이라고 한다.
 - 라우팅을 설정하는 방법으로는 Static, OSPF, BGP, EIGRP, RIP 등이 있지만 그 중에서도 특정 정책 기반으로 라우팅을 하는 PBR에 대해 알아보자.
