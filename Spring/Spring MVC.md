@@ -1,5 +1,7 @@
 # Spring MVC의 구조
+## 도식도
 ![image](https://github.com/user-attachments/assets/03379ba9-1e8b-4ff9-8530-f8c4e04c4300)
+## 기능
 1. 클라이언트가 서버에 요청을 하면, Front Controller인 DispatcherServlet 클래스가 요청을 받는다.
 2. DispatcherServlet은 프로젝트 파일 내의 servlet-context.xml 파일의 @Controller 인자를 통해 등록한 요청 위임 컨트롤러를 찾아 매핑(mapping)된 컨트롤러가 존재하면 @RequestMapping을 통해 요청을 처리할 메소드로 이동한다.
 3. 컨트롤러는 해당 요청을 처리한 Service(서비스)를 받아 비즈니스 로직을 서비스에게 위임한다.
