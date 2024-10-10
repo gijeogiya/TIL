@@ -25,3 +25,4 @@ http://example.com:3000/index.html
 http://example.com:5000/index.html
 '''
 - 이 둘도 포트 번호가 다르기 때문에 다른 origin이다.
+## 
