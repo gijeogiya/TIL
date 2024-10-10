@@ -25,4 +25,16 @@ http://example.com:3000/index.html
 http://example.com:5000/index.html
 '''
 - 이 둘도 포트 번호가 다르기 때문에 다른 origin이다.
-## 
+## Same Site
+- 반면 same site의 기준은 다르다.
+- 서브도메인이 이 모든 혼동의 시작이었는데, 결론적으로 보자면 서브도메인은 오리진은 다르지만 same site이다.
+- 보통 same stie라 하면, Top-Level-Domain(TLD), 즉 .com, .kr 같은 최상위 도메인과 그 바로 앞까지를 포함하는 부분이 두 개의 다른 url에 동일하게 보이는 경우를 의미한다.
+https://my.example.com
+https://your.example.com
+- 이 둘은 오리진은 다르겠지만 (엄연히 도메인이 다릅니다) same-site로 볼 수 있습니다.
+- 그래서 쿠키 세팅과 관련된 옵션에서 도메인 옵션을 example.com으로 설정해둔다면 서로 쿠키를 설정해줄 수 있다.
+- 하지만 좀 더 엄격하게 본다면, 단순히 TLD와 그 앞까지만이 아니라 Public Suffix List에 명시된 기준을 참고하여 어느 범위까지 동일할 때 same site로 판단할지를 결정한다.
+- 이런 리스트를 굳이 관리하게 된 이유는 .co.kr 같이 세 번째 자리부터 등록이 가능한 경우는 이미 kr앞에 co가 추가되어 있어서 same-site의 범위가 너무 넓어지고, 이렇게 되면 쿠키를 모든 co.kr사이트에 등록할 수 있게 되어버리기 때문이다.
+## 마치며
+- CORS가 SOP와 분리해서 생각할 수 없는 것처럼 same-site도 쿠키와 따로 이해하는 것이 무의미하다는 느낌을 많이 받았다.
+- 결국 위에서 얘기한 same-site를 판별하는 Public Suffix List를 참조하는 로직도 쿠키 세팅을 고민하다가 나오게 된 개념이다.
