@@ -28,6 +28,7 @@ http://example.com:5000/index.html
 ## Same Site
 - 반면 same site의 기준은 다르다.
 - 서브도메인이 이 모든 혼동의 시작이었는데, 결론적으로 보자면 서브도메인은 오리진은 다르지만 same site이다.
+![image](https://github.com/user-attachments/assets/a093ac76-befb-40d7-a90f-cae0927f6170)
 - 보통 same stie라 하면, Top-Level-Domain(TLD), 즉 .com, .kr 같은 최상위 도메인과 그 바로 앞까지를 포함하는 부분이 두 개의 다른 url에 동일하게 보이는 경우를 의미한다.
 ```
 https://my.example.com
