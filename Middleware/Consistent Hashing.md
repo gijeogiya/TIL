@@ -2,7 +2,8 @@
 N개의 캐시 서버가 있다고 하자.      
 이 서버들에 부하를 균등하게 나누는 보편적 방법은 아래의 해시 함수를 사용하는 것이다.     
 > serverIndex = hash(key) % N     
-> * N은 서버의 개수     
+> * N은 서버의 개수
+       
 ![image](https://github.com/user-attachments/assets/96314bcb-177d-40a2-b1f9-0baed8072763)
 **이 때 생길 수 있는 문제**      
 서버가 추가되거나 기존 서버가 삭제되었을 경우 N 값이 바뀜     
