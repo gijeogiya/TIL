@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/16304cd0-7bd0-44b2-8598-ceed2ab0fef0)# Rate Limiting(처리율 제한 장치 설계)
+# Rate Limiting(처리율 제한 장치 설계)
 ## 개요
 - 처리율 제한 장치(Rate Limiter)는 클라이언트 또는 서비스가 보내는 트래픽의 처리율(Rate)을 제어하기 위한 장치이다.   
 - 이 기술은 서비스나 애플리케이션에 너무 많은 요청이 한꺼번에 몰리는 것을 방지하여, 서버가 안정적으로 운영될 수 있도록 돕는다.   
