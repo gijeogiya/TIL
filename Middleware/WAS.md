@@ -12,6 +12,7 @@
 ![WAS 종류](https://github.com/user-attachments/assets/d36a3fda-2255-4fdd-bf76-1709d47017f3)
 ![WAS 역할](https://github.com/user-attachments/assets/bb24b139-af12-4527-948f-c311869c89b0)
 ![WAS 프로세스](https://github.com/user-attachments/assets/afcc9e59-b41d-4871-9004-fc23b96c5a84)
+
 ## WAS(Web Application Server)의 특징
 ### Thread Pool Or Connection Pool
 - WEB과 WAS를 연결하는 Thread Pool은 동일 및 MIN/MAX를 동일하게 설정하는 것을 권고한다.
