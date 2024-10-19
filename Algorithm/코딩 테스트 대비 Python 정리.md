@@ -67,6 +67,10 @@
 
 `reverse`
 
+## for문으로 이중리스트 만들기
+```python
+double_list = [[0 for _ range(10)] for _ range(10)]
+```
 
 
 ## 모듈
