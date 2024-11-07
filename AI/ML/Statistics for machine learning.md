@@ -16,3 +16,7 @@
 - 순위형 변수(Ordinal Variable): 증상의 정도, 학력수준 등
 #### 연속형 변수(Continuous Variable): 연령, 체중 등
 cf) 양적(Quantitative) 변수, 질적(Qualitative) 변수       
+### 대표값(Measure of Central Tendency)
+- (산술)평균(arithmetic mean)
+- 중위수(median): 중앙에 위치한 값
+- 최빈수(mode0: 빈도가 가장 많은 값
