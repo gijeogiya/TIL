@@ -19,4 +19,8 @@ cf) 양적(Quantitative) 변수, 질적(Qualitative) 변수
 ### 대표값(Measure of Central Tendency)
 - (산술)평균(arithmetic mean)
 - 중위수(median): 중앙에 위치한 값
-- 최빈수(mode0: 빈도가 가장 많은 값
+- 최빈수(mode): 빈도가 가장 많은 값
+### 산포도(Measure of Central Dispersion)
+- 분산: 분산의 제곱근 (표준편차)
+- 범위: 최댓값 - 최솟값
+- 사분위 범위: 3사분위수(Q3) - 1사분위수(Q1)
