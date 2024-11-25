@@ -1,6 +1,6 @@
 # AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)
       
-## AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)의 등장 ]
+## AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)의 등장
 AOP(Aspect Oriented Programming, 관점 지향 프로그래밍)를 이해하기 위해서는 어드바이스(Advice), 포인트컷(PointCut)를 이해해야 한다.     
      
 - 어드바이스(Advice): 타겟 오브젝트에 적용하는 부가 기능을 담은 오브젝트
