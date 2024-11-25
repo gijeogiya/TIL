@@ -7,13 +7,13 @@
 ![image](https://github.com/user-attachments/assets/7e9ea392-1510-4029-983b-c58a6857101b)     
 - 인덱스를 활용하면, 데이터를 조회하는 SELECT 외에도 UPDATE나 DELETE의 성능이 함께 향상된다.
 - 그러한 이유는 해당 연산을 수행하려면 해당 대상을 조회해야만 작업을 할 수 있기 때문이다.
-> PK(기본키, Primary Key)와 인덱스(Index)에 대해서 자세히 알고 있는 것은 굉장히 중요하다.
 ```oracle
 // Gijeong이라는 이름을 업데이트 해주기 위해서는 Gi을 조회해야 한다.
 UPDATE USER SET NAME = 'Gijeong' WHERE NAME = 'Gi';
 ```
 - 만약 index를 사용하지 않은 컬럼을 조회해야 하는 상황이라면 전체를 탐색하는 Full Scan을 수행해야 한다.
 - Full Scan은 전체를 비교하여 탐색하기 때문에 처리 속도가 떨어진다.
+> PK(기본키, Primary Key)와 인덱스(Index)에 대해서 자세히 알고 있는 것은 굉장히 중요하다.
 ### 인덱스(index)의 관리
 - DBMS는 index를 항상 최신의 정렬된 상태로 유지해야 원하는 값을 빠르게 탐색할 수 있다.
 - 그렇기 때문에 인덱스가 적용된 컬럼에 INSERT, UPDATE, DELETE가 수행된다면 각각 다음과 같은 연산을 추가적으로 해주어야 하며 그에 따른 오버헤드가 발생한다.
