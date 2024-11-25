@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/8d1eec26-5358-40ff-bfcf-f9175b8aa681)# Index
+# Index
 ## 인덱스(Index)
 - 인덱스란 추가적인 쓰기 작업과 저장 공간을 활용하여 데이터베이스 테이블의 검색 속도를 향상시키기 위한 **자료구조**이다.
 - 만약 우리가 책에서 원하는 내용을 찾는다고 하면, 책의 모든 페이지를 찾아 보는것은 오랜 시간이 걸린다.
