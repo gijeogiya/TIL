@@ -88,4 +88,4 @@
 ## `Secure` 필수 정책
 - `SameSite` 속성으로 `None`을 사용하려면 반드시 해당 쿠키는 Secure 쿠키여야한다.
 - `Secure` 쿠키는 HTTPS가 적용된(구간 암호화된) 요청에만 전송되는 쿠키이다.
-- 크롬에서는 `SameSite`=`None`으로 `Set-Cookie`를 사용하면 다음과 같이 쿠키 자체가 제대로 설정되지 않는다.
+- 크롬에서는 `SameSite=None`으로 `Set-Cookie`를 사용하면 다음과 같이 쿠키 자체가 제대로 설정되지 않는다.
