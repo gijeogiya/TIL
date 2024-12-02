@@ -85,7 +85,15 @@
 - 원래 SameSite를 명시하지 않은 쿠키는 SameSite가 None으로 동작했지만, 2020년 2월 4일 크롬 80 버전이 배포되면서 SameSite의 기본값이 Lax로 변경되었고, 이 변경사항은 운영되고 있는 웹 서비스들에게 많은 영향을 미쳤다.
 - 특히 온라인 결제나 OAuth처럼 구현에 크로스 사이트 간의 페이지 전환이 필요한 경우 이러한 변경사항 때문에 원래 제공하던 기능이 제대로 동작하지 않은 경우도 있었다. 물론 시간이 꽤 지났기 때문에 현재 운영되는 서비스들은 대부분 대응되어 있을 거다.
 - 나도 오늘 이런 히스토리를 몰라서 하루종일 삽질했다. (헤맨만큼 내땅이다. 이럴때 쓰는말 맞나???)
-## `Secure` 필수 정책
+### `Secure` 필수 정책
 - `SameSite` 속성으로 `None`을 사용하려면 반드시 해당 쿠키는 Secure 쿠키여야한다.
 - `Secure` 쿠키는 HTTPS가 적용된(구간 암호화된) 요청에만 전송되는 쿠키이다.
 - 크롬에서는 `SameSite=None`으로 `Set-Cookie`를 사용하면 다음과 같이 쿠키 자체가 제대로 설정되지 않는다.
+![image](https://github.com/user-attachments/assets/fbb349ca-52c9-4c8b-a24f-e62b9018be55)
+## 쿠키의 미래
+- 크로미엄 블로그의 Building a more private web: A path towards making third party cookies obsolete라는 글에는 다음과 같은 내용이 있다.
+> ... and we have developed the tools to mitigate workarounds, we plan to phase out support for third-party cookies in Chrome.
+- 크롬에서는 장기적으로 서드 파티 쿠키에 대한 지원을 단계적으로 제거할 예정이라는 말이다. 결국 미래에는 모든 쿠키가 SameSite=Strict로 설정된 것처럼 동작하게 된다는 의미이다.
+- 현재로서는 퍼스트 파티 쿠키가 서드 파티 쿠키의 역할을 모두 대체할 수 없는 상태이다. 가령 어떤 서비스가 gijeong.com와 gijeong.io 두 가지 도메인을 모두 사용해서 운영된다고 생각해보면, 당연히 브라우저는 이 두 도메인을 다른 도메인으로 인식할 것이고, 모든 서드 파티 쿠키가 전송되지 않는다면 이 두 도메인 사이를 왔다갔다 할 때마다 전송되지 않는 쿠키로 인해 문제가 생길 것이다.
+- 구글은 이 문제를 해결하기 위해서 First-Party Sets라는 표준을 제안했다. First-Party Sets는 여러개의 도메인을 동일한 사이트로 다룰 수 있도록 만드는 기술이다. gijeong.com에서 "gijeong.io도 같은 서비스를 제공하고 있어!" 라고 브라우저한테 알려주면 브라우저는 이후에는 그 도메인을 같은 사이트로 관리하는 것이다. 하지만 아직 표준으로 합의되지 않았고 반대도 많은 만큼 어떻게 될 지는 모르겠다.
+- 확실한 건 앞으로는 점점 더 쿠키를 사용하기 까다로워 질 거라는 사실이다. 지금부터 서드 파티 쿠키를 사용하지 못한다는 전제하에 서비스를 개발하는 게 좋을 것 같다.
