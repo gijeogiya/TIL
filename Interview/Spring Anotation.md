@@ -29,4 +29,4 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 - @Repository를 @Component로 대체할 경우, PersistenceExceptionTranslationPostProcessor에 의해 예외가 DataAccessException으로 변환되지 않는다.
 - 이 경우 데이터 액세스 계층에서 발생하는 예외 처리에 영향을 미칠 수 있다.
 - @Service, @Controller, @Repository는 각각 특정 계층을 나타내므로, AOP의 포인트컷을 정의할 때 유용하게 사용될 수 있다.
-- @Component를 사용하면 이러한 계층 구분이 불분명해져 AOP 적용이 어려울 수 있습니다.
+- @Component를 사용하면 이러한 계층 구분이 불분명해져 AOP 적용이 어려울 수 있다.
