@@ -6,15 +6,6 @@
 - 마찬가지로 숫자의 절대값을 계산하는 절대값 함수는 같은 값에 대해 여러 번 수행해도 처음과 항상 같은 숫자가 돌아오기 때문에 멱등 함수라고 불른다.
 ## HTTP 메서드의 멱등성
 - HTTP 메서드에도 멱등성이 있다.
-- 예를 들어 GET은 여러 번 호출해도 같은 결과가 돌아오고, 리소스에 변화를 일으키지 않기 때문에 멱등성이 보장된 메서드다.
-|메서드|멱등성|
-|-----|-----|
-|CONNECT|X|
-|DELETE|O|
-|GET|O|
-|HEAD|O|
-|OPTIONS|O|
-|POST|X|
-|PUT|O|
-|PATCH|X|
-|TRACE|O|
+- 예를 들어 GET은 여러 번 호출해도 같은 결과가 돌아오고, 리소스에 변화를 일으키지 않기 때문에 멱등성이 보장된 메서드다.     
+![image](https://github.com/user-attachments/assets/265699ef-5fbd-41df-b6eb-46b214bdffbb)      
+![image](https://github.com/user-attachments/assets/9778b61f-5022-49a4-8893-d86829c7571d)      
