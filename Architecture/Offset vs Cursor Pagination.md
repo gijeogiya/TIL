@@ -1,5 +1,5 @@
-# Offset vs Cursor Pagination: 서비스 성장에 따른 설계
-
+# Offset vs Cursor Pagination
+## 서비스 성장에 따른 대규모 시스템 설계
 서비스 개발을 하다 보면 페이징 구현 전략에 대해 고민하게 된다. 특히 서비스가 성장함에 따라 Offset과 Cursor 페이징 중 어떤 것을 선택할지, 또 어떻게 전환할지에 대한 결정이 필요하다.
 
 ## Offset vs Cursor: 기본 개념과 설계 대한 고민
