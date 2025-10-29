@@ -66,7 +66,7 @@ GET /api/v1/posts?session_id=abcd1234&page_size=10&page=2
 #### 이 방식의 장단점
 
 #### 장점
-- 클라이언트 API 사용 방식을 유지(API의 무상태성 유지? 혹은 달성)
+- 클라이언트 API 사용 방식을 유지(API의 무상태성 유지?)
 - 서버 내부적으로 Cursor 페이징의 성능 개선
 - 점진적 전환 가능
 
