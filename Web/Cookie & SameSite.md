@@ -19,14 +19,14 @@
 - 쿠키에 별도로 명시된 도메인이 없다면 기본값으로 쿠키를 보낸 서버의 도메인으로 설정된다.
 ## 퍼스트 파티 쿠키와 서드 파티 쿠키
 - 그리고 이렇게 설정된 도메인을 기준으로 퍼스트 파티 쿠키(First-party cookies)와 서드 파티 쿠키(Third-party cookies)가 나뉘어 진다.
-- 우리는 `gijoeng.com`에 접속한 상태이다. 만약 `gijoeng.com`에서 `example.com`이 제공하는 이미지인 `example.com/image.png`를 사용하고 있다고 가정해보자
-- 이 경우 사용자는 seob.dev에 접속해 있지만 브라우저에서는 example.com/image.png로 요청을 보낼 것 이다.
+- 우리는 `gijoeng.com`에 접속한 상태이다. 만약 `gijeong.com`에서 `example.com`이 제공하는 이미지인 `example.com/image.png`를 사용하고 있다고 가정해보자
+- 이 경우 사용자는 gijeong.com에 접속해 있지만 브라우저에서는 example.com/image.png로 요청을 보낼 것 이다.
 - 아래와 같은 HTML 코드로 나타낼 수 있다.
 ```html
 <html>
   <head>
-    <title>gijoeng.com</title>
-    <meta property="og:url" content="https://seob.dev/" />
+    <title>gijeong.com</title>
+    <meta property="og:url" content="https://gijeong.com/" />
   </head>
   <body>
     <img src="https://example.com/image.png" />
@@ -36,12 +36,12 @@
 - 이 때 사용자가 example.com에 대한 쿠키를 가지고 있다면, 해당 쿠키가 example.com을 운영하는 서버로 같이 전송된다.
 - 이 때 전송되는 쿠키를 서드 파티 쿠키라고 부른다. 그러니까, 서드 파티 쿠키는 사용자가 접속한 페이지와 다른 도메인으로 전송하는 쿠키를 말한다.
 - Referer 헤더와 쿠키에 설정된 도메인이 다른 쿠키라고도 말할 수 있다.
-- 그렇기 때문에 사용자가 `gijoeng.com`에 걸려있는 `example.com` 링크를 클릭한 경우에 전송되는 쿠키도 서드 파티 쿠키로 취급된다. 이 때 Referer는 `gijoeng.com`이기 떼문이다.
+- 그렇기 때문에 사용자가 `gijeong.com`에 걸려있는 `example.com` 링크를 클릭한 경우에 전송되는 쿠키도 서드 파티 쿠키로 취급된다. 이 때 Referer는 `gijeong.com`이기 떼문이다.
 ```html
 <html>
   <head>
-    <title>gijoeng.com</title>
-    <meta property="og:url" content="https://seob.dev/" />
+    <title>gijeong.com</title>
+    <meta property="og:url" content="https://gijeong.com/" />
   </head>
   <body>
     <!-- 아래 링크를 클릭한 경우에 전송되는 쿠키들은 서드 파티 쿠키로 취급된다. -->
@@ -52,7 +52,7 @@
 - 퍼스트 파티 쿠키는 반대로 이해하면 간단하다.
 - 퍼스트 파티 쿠키는 사용자가 접속한 페이지와 같은 도메인으로 전송되는 쿠키를 말한다.
 - 같은 쿠키라도 사용자가 접속한 페이지에 따라 퍼스트 파티 쿠키로도 부를 수 있고, 서드 파티 쿠키로도 부를 수 있다.
-- 앞서 말한 예제에서 `example.com`에 설정된 쿠키는 사용자가 `gijoeng.com`에 접속해 있을 때는 서드 파티 쿠키였지만, `example.com`에 접속해 있을때는 퍼스트 파티 쿠키이다.
+- 앞서 말한 예제에서 `example.com`에 설정된 쿠키는 사용자가 `gijeong.com`에 접속해 있을 때는 서드 파티 쿠키였지만, `example.com`에 접속해 있을때는 퍼스트 파티 쿠키이다.
 ## 쿠키와 CSRF 문제
 - 쿠키에 별도로 설정을 가하지 않는다면, 크롬을 제외한 브라우저들은 모든 HTTP 요청에 대해서 쿠키를 전송하게 된다.
 - 그 요청에는 HTML 문서 요청, HTML 문서에 포함된 이미지 요청, XHR 혹은 Form을 이용한 HTTP 요청등 모든 요청이 포함된다.
